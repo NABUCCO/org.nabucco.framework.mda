@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src/main"/>
+	<classpathentry kind="src" path="src/test"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/org.nabucco.framework.mda.model"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="/org.nabucco.framework.mda/lib/org.eclipse.equinox.common.jar"/>
+	<classpathentry kind="lib" path="/org.nabucco.framework.mda/lib/org.eclipse.jdt.core.jar"/>
+	<classpathentry kind="lib" path="/org.nabucco.framework.mda/lib/org.eclipse.text.jar"/>
+	<classpathentry kind="output" path="out/ide"/>
+</classpath>
