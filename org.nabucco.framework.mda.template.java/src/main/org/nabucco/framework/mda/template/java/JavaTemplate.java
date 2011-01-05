@@ -24,15 +24,20 @@ import org.nabucco.framework.mda.template.MdaTemplateException;
 import org.nabucco.framework.mda.template.java.extract.JavaAstExtractorFactory;
 
 /**
- * 
  * JavaTemplate
  * 
  * @author Frank Ratschinski, PRODYNA AG
  */
 public class JavaTemplate extends MdaTemplate<JavaModel> {
 
+    /**
+     * Creates a new {@link JavaTemplate} instance.
+     * 
+     * @param model
+     *            the java model
+     */
     public JavaTemplate(JavaModel model) {
-        this.model = model;
+        super(model);
     }
 
     @Override
@@ -48,4 +53,22 @@ public class JavaTemplate extends MdaTemplate<JavaModel> {
         return new JavaTemplate(this.extractModel());
     }
 
+    /**
+     * Getter for the template compilation unit.
+     * 
+     * @return the unit
+     */
+    public JavaCompilationUnit getUnit() {
+        JavaModel model = super.getModel();
+        if (model == null) {
+            throw new IllegalStateException(
+                    "Cannot retrieve the template unit. Model is not valid [null].");
+        }
+        if (model.getUnitList() == null || model.getUnitList().size() != 1) {
+            throw new IllegalStateException(
+                    "Cannot retrieve the template unit. Unit cannot be determined.");
+        }
+
+        return model.getUnitList().get(0);
+    }
 }

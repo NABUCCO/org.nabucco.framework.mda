@@ -29,6 +29,8 @@ public interface JavaTemplateConstants extends MdaTemplateConstants {
 
     final String COMPONENT = "Component";
 
+    final String DATATYPE = "Datatype";
+    
     final String COMMAND = "Command";
 
     final String COMMON = "Common";

@@ -27,11 +27,14 @@ import org.eclipse.jdt.internal.compiler.ast.Argument;
 import org.eclipse.jdt.internal.compiler.ast.Assignment;
 import org.eclipse.jdt.internal.compiler.ast.BinaryExpression;
 import org.eclipse.jdt.internal.compiler.ast.Block;
+import org.eclipse.jdt.internal.compiler.ast.BreakStatement;
+import org.eclipse.jdt.internal.compiler.ast.CaseStatement;
 import org.eclipse.jdt.internal.compiler.ast.CastExpression;
 import org.eclipse.jdt.internal.compiler.ast.CharLiteral;
 import org.eclipse.jdt.internal.compiler.ast.ClassLiteralAccess;
 import org.eclipse.jdt.internal.compiler.ast.CompilationUnitDeclaration;
 import org.eclipse.jdt.internal.compiler.ast.ConditionalExpression;
+import org.eclipse.jdt.internal.compiler.ast.ContinueStatement;
 import org.eclipse.jdt.internal.compiler.ast.DoubleLiteral;
 import org.eclipse.jdt.internal.compiler.ast.EqualExpression;
 import org.eclipse.jdt.internal.compiler.ast.Expression;
@@ -80,6 +83,7 @@ import org.nabucco.framework.mda.model.java.ast.extension.expression.CastExpress
 import org.nabucco.framework.mda.model.java.ast.extension.javadoc.JavadocExtension;
 import org.nabucco.framework.mda.model.java.ast.extension.javadoc.JavadocParameter;
 import org.nabucco.framework.mda.model.java.ast.extension.method.MethodDeclarationExtension;
+import org.nabucco.framework.mda.model.java.ast.extension.statement.CaseStatementExtension;
 
 /**
  * JavaAstModelProducer
@@ -603,5 +607,55 @@ public final class JavaAstModelProducer {
         Wildcard wildcard = new Wildcard(Wildcard.EXTENDS);
         wildcard.bound = type;
         return wildcard;
+    }
+
+    /**
+     * Creates a case statement for switch statements.
+     * 
+     * @param constant
+     *            the constant expression
+     * 
+     * @return the case statement
+     * 
+     * @throws JavaModelException
+     */
+    public CaseStatement createCaseStatement(Expression constant) throws JavaModelException {
+        return new CaseStatementExtension(constant, 0, 0);
+    }
+
+    /**
+     * Creates a case statement for switch statements.
+     * 
+     * @param constant
+     *            the constant name
+     * 
+     * @return the case statement
+     * 
+     * @throws JavaModelException
+     */
+    public CaseStatement createCaseStatement(String constant) throws JavaModelException {
+        return this.createCaseStatement(this.createSingleNameReference(constant));
+    }
+
+    /**
+     * Create a <code>break</b> statement.
+     * 
+     * @return the break statement
+     * 
+     * @throws JavaModelException
+     */
+    public BreakStatement createBreakStatement() throws JavaModelException {
+        return new BreakStatement(null, 0, 0);
+    }
+
+    /**
+     * Create a <code>continue</b> statement.
+     * 
+     * @return the break statement
+     * 
+     * @throws JavaModelException
+     */
+    public ContinueStatement createContinueStatement() throws JavaModelException {
+        return new ContinueStatement(null, 0, 0);
     }
 }

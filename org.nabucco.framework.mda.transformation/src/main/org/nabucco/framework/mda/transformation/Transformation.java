@@ -41,6 +41,7 @@ public interface Transformation<S extends ModelImplementation, T extends ModelIm
      *            the transformation context
      * 
      * @throws TransformationException
+     *             when the transformation failed
      */
     void transformModel(MdaModel<S> source, MdaModel<T> target, C context)
             throws TransformationException;

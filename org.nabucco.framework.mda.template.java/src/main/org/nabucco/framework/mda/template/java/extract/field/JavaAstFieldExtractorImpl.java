@@ -66,7 +66,17 @@ class JavaAstFieldExtractorImpl implements JavaAstFieldExtractor {
             throw new JavaTemplateException(visitor.getVisitorContext().getExceptionList().get(0));
         }
 
-        return visitor.getFieldCopy(fieldName);
+        List<FieldDeclaration> fields = visitor.getAllFieldCopies();
+        
+        for (FieldDeclaration fieldDeclaration : fields) {
+            String name = new String(fieldDeclaration.name);
+            
+            if (name.equals(fieldName)) {
+                return fieldDeclaration;
+            }
+        }
+
+        return null;
     }
 
     @Override

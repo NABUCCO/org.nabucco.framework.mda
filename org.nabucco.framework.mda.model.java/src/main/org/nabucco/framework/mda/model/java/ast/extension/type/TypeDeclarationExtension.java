@@ -34,9 +34,6 @@ import org.nabucco.framework.mda.model.java.ast.comparator.AbstractMethodDeclara
  */
 public class TypeDeclarationExtension extends TypeDeclaration {
 
-    /**
-     * Comment for <code>SEMICOLON</code>
-     */
     private static final String SEMICOLON = ";";
 
     /**
@@ -54,12 +51,17 @@ public class TypeDeclarationExtension extends TypeDeclaration {
 
         // Inner classes are not supported
 
-        // if (this.memberTypes != null) {
-        // for (int i = 0; i < this.memberTypes.length; i++) {
-        // if (this.memberTypes[i] != null) {
-        // output.append('\n');
-        // this.memberTypes[i].print(indent + 1, output);
-        // } } }
+        if (this.memberTypes != null) {
+
+            throw new IllegalArgumentException("Inner classes are not supported! Found in '"
+                    + new String(this.name) + ".java'.");
+
+            // for (int i = 0; i < this.memberTypes.length; i++) {
+            // if (this.memberTypes[i] != null) {
+            // output.append('\n');
+            // this.memberTypes[i].print(indent + 1, output);
+            // } }
+        }
 
         if (this.fields != null) {
             for (int i = 0; i < this.fields.length; i++) {

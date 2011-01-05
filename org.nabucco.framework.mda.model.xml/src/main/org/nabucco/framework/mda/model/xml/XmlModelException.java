@@ -27,29 +27,42 @@ public class XmlModelException extends ModelException {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Creates a new {@link XmlModelException} instance.
+     */
     public XmlModelException() {
     }
 
     /**
+     * Creates a new {@link XmlModelException} instance.
+     * 
      * @param message
-     * @param throwable
+     *            the error message
+     * @param cause
+     *            the error cause
      */
-    public XmlModelException(String message, Throwable throwable) {
-        super(message, throwable);
+    public XmlModelException(String message, Exception cause) {
+        super(message, cause);
     }
 
     /**
-     * @param messages
+     * Creates a new {@link XmlModelException} instance.
+     * 
+     * @param message
+     *            the error message
      */
-    public XmlModelException(String messages) {
-        super(messages);
+    public XmlModelException(String message) {
+        super(message);
     }
 
     /**
-     * @param throwable
+     * Creates a new {@link XmlModelException} instance.
+     * 
+     * @param cause
+     *            the error cause
      */
-    public XmlModelException(Throwable throwable) {
-        super(throwable);
+    public XmlModelException(Exception cause) {
+        super(cause);
     }
 
 }

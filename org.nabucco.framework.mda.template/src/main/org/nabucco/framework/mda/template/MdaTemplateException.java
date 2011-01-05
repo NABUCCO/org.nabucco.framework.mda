@@ -19,7 +19,6 @@ package org.nabucco.framework.mda.template;
 import org.nabucco.framework.mda.MdaExeception;
 
 /**
- * 
  * TemplateException
  * 
  * @author Frank Ratschinski, PRODYNA AG
@@ -28,20 +27,43 @@ public class MdaTemplateException extends MdaExeception {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Creates a new {@link MdaExeception} instance.
+     */
     public MdaTemplateException() {
         super();
     }
 
-    public MdaTemplateException(String message, Throwable throwable) {
-        super(message, throwable);
+    /**
+     * Creates a new {@link MdaExeception} instance.
+     * 
+     * @param message
+     *            the error message
+     * @param cause
+     *            the error cause
+     */
+    public MdaTemplateException(String message, Exception cause) {
+        super(message, cause);
     }
 
+    /**
+     * Creates a new {@link MdaExeception} instance.
+     * 
+     * @param message
+     *            the error message
+     */
     public MdaTemplateException(String messages) {
         super(messages);
     }
 
-    public MdaTemplateException(Throwable throwable) {
-        super(throwable);
+    /**
+     * Creates a new {@link MdaExeception} instance.
+     * 
+     * @param cause
+     *            the error cause
+     */
+    public MdaTemplateException(Exception cause) {
+        super(cause);
     }
 
 }

@@ -19,98 +19,135 @@ package org.nabucco.framework.mda.logger;
 import org.apache.log4j.Logger;
 
 /**
- * 
  * Log4JMdaLogger
  * 
  * @author Frank Ratschinski, PRODYNA AG
+ * @author Nicolas Moser, PRODYNA AG
  */
 public class Log4JMdaLogger implements MdaLogger {
 
     private Logger logger;
 
+    /**
+     * Creates a new {@link Log4JMdaLogger} instance.
+     * 
+     * @param clazz
+     *            the logging class
+     */
     public Log4JMdaLogger(Class<?> clazz) {
         this.logger = Logger.getLogger(clazz);
     }
 
     @Override
     public void debug(Exception e, String... message) {
-        if (logger.isDebugEnabled()) {
-            logger.debug(appendMessages(message), e);
+        if (this.logger.isDebugEnabled()) {
+            this.logger.debug(appendMessages(message), e);
         }
     }
 
     @Override
     public void debug(String... message) {
-        if (logger.isDebugEnabled()) {
-            logger.debug(appendMessages(message));
+        if (this.logger.isDebugEnabled()) {
+            this.logger.debug(appendMessages(message));
         }
     }
 
     @Override
     public void error(Exception e, String... message) {
-        logger.error(appendMessages(message), e);
+        this.logger.error(appendMessages(message), e);
     }
 
     @Override
     public void error(String... message) {
-        logger.error(appendMessages(message));
+        this.logger.error(appendMessages(message));
 
     }
 
     @Override
     public void fatal(Exception e, String... message) {
-        logger.fatal(appendMessages(message), e);
+        this.logger.fatal(appendMessages(message), e);
 
     }
 
     @Override
     public void fatal(String... message) {
-        logger.fatal(appendMessages(message));
+        this.logger.fatal(appendMessages(message));
 
     }
 
     @Override
     public void info(Exception e, String... message) {
-        if (logger.isInfoEnabled()) {
-            logger.error(appendMessages(message), e);
+        if (this.logger.isInfoEnabled()) {
+            this.logger.error(appendMessages(message), e);
         }
     }
 
     @Override
     public void info(String... message) {
-        if (logger.isInfoEnabled()) {
-            logger.info(appendMessages(message));
+        if (this.logger.isInfoEnabled()) {
+            this.logger.info(appendMessages(message));
         }
     }
 
     @Override
     public void trace(String... message) {
-        if (logger.isTraceEnabled()) {
-            logger.trace(appendMessages(message));
+        if (this.logger.isTraceEnabled()) {
+            this.logger.trace(appendMessages(message));
         }
     }
 
     @Override
     public void warning(Exception e, String... message) {
-        logger.warn(appendMessages(message), e);
+        this.logger.warn(appendMessages(message), e);
     }
 
     @Override
     public void warning(String... message) {
-        logger.warn(appendMessages(message));
+        this.logger.warn(appendMessages(message));
 
     }
 
-    private String appendMessages(String... message) {
-        int size = message.length;
+    @Override
+    public boolean isDebugEnabled() {
+        return this.logger.isDebugEnabled();
+    }
+
+    @Override
+    public boolean isTraceEnabled() {
+        return this.logger.isTraceEnabled();
+    };
+
+    /**
+     * Append the message fragments into a common string.
+     * 
+     * @param messages
+     *            the message tokens
+     * 
+     * @return the resulting message
+     */
+    private String appendMessages(String... messages) {
+        if (messages == null) {
+            return "";
+        }
+
         int msgLength = 0;
+        int size = messages.length;
+
         for (int i = 0; i < size; i++) {
-            msgLength += message[i].length();
+            String message = messages[i];
+            if (message != null) {
+                msgLength += message.length();
+            }
         }
-        StringBuilder sb = new StringBuilder(msgLength);
+
+        StringBuilder result = new StringBuilder(msgLength);
         for (int i = 0; i < size; i++) {
-            sb.append(message[i]);
+            String message = messages[i];
+            if (message != null) {
+                result.append(messages[i]);
+            }
         }
-        return sb.toString();
+
+        return result.toString();
     }
 }

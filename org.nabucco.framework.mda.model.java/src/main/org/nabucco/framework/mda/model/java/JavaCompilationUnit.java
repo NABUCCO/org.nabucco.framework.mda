@@ -140,6 +140,17 @@ public class JavaCompilationUnit implements MdaFile {
     }
 
     /**
+     * Getter for the public type declaration contained by the {@link CompilationUnitDeclaration}.
+     * 
+     * @return the class as {@link TypeDeclaration}
+     * 
+     * @throws JavaModelException
+     */
+    public TypeDeclaration getType() throws JavaModelException {
+        return JavaAstElementFactory.getInstance().getJavaAstUnit().getPublicJavaClass(this.unit);
+    }
+
+    /**
      * Getter for the type declaration with the given name contained by the
      * {@link CompilationUnitDeclaration}.
      * 

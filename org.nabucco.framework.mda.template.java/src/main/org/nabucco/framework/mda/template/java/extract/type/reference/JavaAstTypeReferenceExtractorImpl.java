@@ -23,6 +23,7 @@ import org.eclipse.jdt.internal.compiler.ast.ParameterizedSingleTypeReference;
 import org.eclipse.jdt.internal.compiler.ast.QualifiedTypeReference;
 import org.eclipse.jdt.internal.compiler.ast.SingleTypeReference;
 import org.eclipse.jdt.internal.compiler.ast.TypeReference;
+import org.eclipse.jdt.internal.compiler.ast.Wildcard;
 import org.nabucco.framework.mda.model.java.util.AstUtil;
 import org.nabucco.framework.mda.template.java.extract.JavaAstTypeReferenceExtractor;
 
@@ -77,7 +78,9 @@ class JavaAstTypeReferenceExtractorImpl implements JavaAstTypeReferenceExtractor
      * TypeReference (Hierarchy level 0).
      * 
      * @param typeReference
-     * @return
+     *            the original type reference
+     * 
+     * @return the clone
      */
     private TypeReference copyTypeReference(TypeReference typeReference) {
         if (typeReference == null) {
@@ -102,13 +105,17 @@ class JavaAstTypeReferenceExtractorImpl implements JavaAstTypeReferenceExtractor
      * SingleTypeReference (Hierarchy level 1).
      * 
      * @param typeReference
-     * @return
+     *            the original type reference
+     * 
+     * @return the clone
      */
     private SingleTypeReference createTypeReference(SingleTypeReference typeReference) {
         SingleTypeReference copy = null;
 
         if (typeReference instanceof ArrayTypeReference) {
             copy = createTypeReference((ArrayTypeReference) typeReference);
+        } else if (typeReference instanceof Wildcard) {
+            copy = createTypeReference((Wildcard) typeReference);
         } else {
             // Default.
             copy = new SingleTypeReference(typeReference.token.clone(), 0);
@@ -121,7 +128,9 @@ class JavaAstTypeReferenceExtractorImpl implements JavaAstTypeReferenceExtractor
      * QualifiedTypeReference (Hierarchy level 1).
      * 
      * @param typeReference
-     * @return
+     *            the original type reference
+     * 
+     * @return the clone
      */
     private QualifiedTypeReference createTypeReference(QualifiedTypeReference typeReference) {
         QualifiedTypeReference copy = null;
@@ -142,7 +151,9 @@ class JavaAstTypeReferenceExtractorImpl implements JavaAstTypeReferenceExtractor
      * ArrayTypeReference (Hierarchy level 2).
      * 
      * @param typeReference
-     * @return
+     *            the original type reference
+     * 
+     * @return the clone
      */
     private ArrayTypeReference createTypeReference(ArrayTypeReference typeReference) {
         ArrayTypeReference copy = null;
@@ -161,7 +172,9 @@ class JavaAstTypeReferenceExtractorImpl implements JavaAstTypeReferenceExtractor
      * ArrayQualifiedTypeReference (Hierarchy level 2).
      * 
      * @param typeReference
-     * @return
+     *            the original type reference
+     * 
+     * @return the clone
      */
     private ArrayQualifiedTypeReference createTypeReference(
             ArrayQualifiedTypeReference typeReference) {
@@ -180,10 +193,29 @@ class JavaAstTypeReferenceExtractorImpl implements JavaAstTypeReferenceExtractor
     }
 
     /**
+     * Wildcard (Hierarchy level 2).
+     * 
+     * @param typeReference
+     *            the original type reference
+     * 
+     * @return the clone
+     */
+    private Wildcard createTypeReference(Wildcard typeReference) {
+        Wildcard copy = null;
+
+        copy = new Wildcard(typeReference.kind);
+        copy.bound = this.copyTypeReference(typeReference.bound);
+
+        return copy;
+    }
+
+    /**
      * ParameterizedSingleTypeReference (Hierarchy level 3).
      * 
      * @param typeReference
-     * @return
+     *            the original type reference
+     * 
+     * @return the clone
      */
     private ParameterizedSingleTypeReference createTypeReference(
             ParameterizedSingleTypeReference typeReference) {
@@ -192,7 +224,6 @@ class JavaAstTypeReferenceExtractorImpl implements JavaAstTypeReferenceExtractor
                 // Recursive call.
                 this.extractTypeReferences(typeReference.typeArguments), typeReference.dimensions,
                 0);
-
         return copy;
     }
 
@@ -200,7 +231,9 @@ class JavaAstTypeReferenceExtractorImpl implements JavaAstTypeReferenceExtractor
      * ParameterizedQualifiedTypeReference (Hierarchy level 3).
      * 
      * @param typeReference
-     * @return
+     *            the original type reference
+     * 
+     * @return the clone
      */
     private ParameterizedQualifiedTypeReference createTypeReference(
             ParameterizedQualifiedTypeReference typeReference) {

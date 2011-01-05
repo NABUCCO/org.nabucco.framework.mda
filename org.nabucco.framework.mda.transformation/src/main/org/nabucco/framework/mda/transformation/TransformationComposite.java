@@ -32,10 +32,18 @@ public abstract class TransformationComposite<S extends ModelImplementation, T e
 
     private List<Transformation<S, T, C>> transformationList;
 
+    /**
+     * Creates a new {@link TransformationComposite} instance.
+     */
     public TransformationComposite() {
-        transformationList = new ArrayList<Transformation<S, T, C>>();
+        this.transformationList = new ArrayList<Transformation<S, T, C>>();
     }
 
+    /**
+     * Getter for the list of transformations.
+     * 
+     * @return the list of transformations.
+     */
     public List<Transformation<S, T, C>> getTransformationList() {
         return this.transformationList;
     }

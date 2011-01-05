@@ -27,20 +27,43 @@ public class UmlVisitorException extends VisitorException {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Creates a new {@link UmlVisitorException} instance.
+     */
     public UmlVisitorException() {
         super();
     }
 
-    public UmlVisitorException(String message, Throwable throwable) {
-        super(message, throwable);
+    /**
+     * Creates a new {@link UmlVisitorException} instance.
+     * 
+     * @param message
+     *            the error message
+     * @param cause
+     *            the error cause
+     */
+    public UmlVisitorException(String message, Exception cause) {
+        super(message, cause);
     }
 
+    /**
+     * Creates a new {@link UmlVisitorException} instance.
+     * 
+     * @param message
+     *            the error message
+     */
     public UmlVisitorException(String messages) {
         super(messages);
     }
 
-    public UmlVisitorException(Throwable throwable) {
-        super(throwable);
+    /**
+     * Creates a new {@link UmlVisitorException} instance.
+     * 
+     * @param cause
+     *            the error cause
+     */
+    public UmlVisitorException(Exception cause) {
+        super(cause);
     }
 
 }

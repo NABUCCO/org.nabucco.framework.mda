@@ -28,12 +28,14 @@ import org.nabucco.framework.mda.template.MdaTemplateException;
  */
 public class UmlTemplate extends MdaTemplate<UmlModel> {
 
+    /**
+     * Creates a new {@link UmlTemplate} instance.
+     * 
+     * @param model
+     *            the UML model
+     */
     public UmlTemplate(UmlModel model) {
-        this.model = model;
-    }
-
-    public UmlModel getModel() {
-        return this.model;
+        super(model);
     }
 
     @Override

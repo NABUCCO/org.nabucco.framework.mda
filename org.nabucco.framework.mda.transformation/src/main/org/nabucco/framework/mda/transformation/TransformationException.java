@@ -27,20 +27,43 @@ public class TransformationException extends MdaExeception {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Creates a new {@link MdaExeception} instance.
+     */
     public TransformationException() {
         super();
     }
 
-    public TransformationException(String message, Throwable throwable) {
-        super(message, throwable);
+    /**
+     * Creates a new {@link MdaExeception} instance.
+     * 
+     * @param message
+     *            the error message
+     * @param cause
+     *            the error cause
+     */
+    public TransformationException(String message, Exception cause) {
+        super(message, cause);
     }
 
+    /**
+     * Creates a new {@link MdaExeception} instance.
+     * 
+     * @param message
+     *            the error message
+     */
     public TransformationException(String messages) {
         super(messages);
     }
 
-    public TransformationException(Throwable throwable) {
-        super(throwable);
+    /**
+     * Creates a new {@link MdaExeception} instance.
+     * 
+     * @param cause
+     *            the error cause
+     */
+    public TransformationException(Exception cause) {
+        super(cause);
     }
 
 }

@@ -232,4 +232,16 @@ public interface JavaAstType {
      * @throws JavaModelException
      */
     void removeModifier(TypeDeclaration type, int modifierFlag) throws JavaModelException;
+
+    /**
+     * Adds the given types as Parameters to the given type, if possible.
+     * 
+     * @param type
+     *            {@link TypeDeclaration} to be parameterized
+     * @param parameters
+     *            List of {@link TypeDeclaration} to add as parameters, order is used.
+     * @throws JavaModelException
+     */
+    void addTypeParameter(TypeDeclaration type, List<TypeReference> parameters)
+            throws JavaModelException;
 }

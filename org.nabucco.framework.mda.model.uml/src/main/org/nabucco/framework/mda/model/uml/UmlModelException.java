@@ -27,29 +27,42 @@ public class UmlModelException extends ModelException {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Creates a new {@link UmlModelException} instance.
+     */
     public UmlModelException() {
     }
 
     /**
+     * Creates a new {@link UmlModelException} instance.
+     * 
      * @param message
-     * @param throwable
+     *            the error message
+     * @param cause
+     *            the error cause
      */
-    public UmlModelException(String message, Throwable throwable) {
-        super(message, throwable);
+    public UmlModelException(String message, Exception cause) {
+        super(message, cause);
     }
 
     /**
-     * @param messages
+     * Creates a new {@link UmlModelException} instance.
+     * 
+     * @param message
+     *            the error message
      */
     public UmlModelException(String messages) {
         super(messages);
     }
 
     /**
-     * @param throwable
+     * Creates a new {@link UmlModelException} instance.
+     * 
+     * @param cause
+     *            the error cause
      */
-    public UmlModelException(Throwable throwable) {
-        super(throwable);
+    public UmlModelException(Exception cause) {
+        super(cause);
     }
 
 }

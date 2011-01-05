@@ -27,29 +27,42 @@ public class ModelException extends MdaExeception {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Creates a new {@link ModelException} instance.
+     */
     public ModelException() {
     }
 
     /**
+     * Creates a new {@link ModelException} instance.
+     * 
      * @param message
-     * @param throwable
+     *            the error message
+     * @param cause
+     *            the cause
      */
-    public ModelException(String message, Throwable throwable) {
-        super(message, throwable);
+    public ModelException(String message, Exception cause) {
+        super(message, cause);
     }
 
     /**
-     * @param messages
+     * Creates a new {@link ModelException} instance.
+     * 
+     * @param message
+     *            the error message
      */
     public ModelException(String messages) {
         super(messages);
     }
 
     /**
-     * @param throwable
+     * Creates a new {@link ModelException} instance.
+     * 
+     * @param cause
+     *            the cause
      */
-    public ModelException(Throwable throwable) {
-        super(throwable);
+    public ModelException(Exception cause) {
+        super(cause);
     }
 
 }

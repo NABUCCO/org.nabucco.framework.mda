@@ -27,7 +27,9 @@ import org.eclipse.jdt.internal.compiler.ast.Clinit;
 import org.eclipse.jdt.internal.compiler.ast.ConstructorDeclaration;
 import org.eclipse.jdt.internal.compiler.ast.FieldDeclaration;
 import org.eclipse.jdt.internal.compiler.ast.MethodDeclaration;
+import org.eclipse.jdt.internal.compiler.ast.ParameterizedSingleTypeReference;
 import org.eclipse.jdt.internal.compiler.ast.TypeDeclaration;
+import org.eclipse.jdt.internal.compiler.ast.TypeParameter;
 import org.eclipse.jdt.internal.compiler.ast.TypeReference;
 import org.nabucco.framework.mda.model.java.JavaModelException;
 import org.nabucco.framework.mda.model.java.ast.JavaAstType;
@@ -300,5 +302,33 @@ class JavaAstTypeImpl implements JavaAstType {
     public void removeModifier(TypeDeclaration type, int modifierFlag) throws JavaModelException {
         type.modifiers &= ~modifierFlag;
 
+    }
+
+    @Override
+    public void addTypeParameter(TypeDeclaration type, List<TypeReference> parameters)
+            throws JavaModelException {
+        type.typeParameters = asTypeParameterArray(parameters);
+    }
+
+    public TypeReference getAsParameterized(TypeReference type, List<TypeReference> params) {
+        return new ParameterizedSingleTypeReference(type.getLastToken(),
+                params.toArray(new TypeReference[0]), 0, 0);
+    }
+
+    /**
+     * @param parameters
+     */
+    private TypeParameter[] asTypeParameterArray(List<TypeReference> parameters) {
+        TypeParameter[] result = new TypeParameter[parameters.size()];
+        for (int i = 0; i < result.length; i++) {
+            TypeReference typeReference = parameters.get(i);
+            TypeParameter typeParameter = new TypeParameter();
+            // behavior resulting behavior of a TypeParameter instance is
+            // <TypeParameter.name extends TypeParameter.type>
+            // typeParameter.type = typeReference;
+            typeParameter.name = typeReference.getLastToken();
+            result[i] = typeParameter;
+        }
+        return result;
     }
 }

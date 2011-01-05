@@ -20,6 +20,7 @@ package org.nabucco.framework.mda.logger;
  * MdaLogger
  * 
  * @author Frank Ratschinski, PRODYNA AG
+ * @author Nicolas Moser, PRODYNA AG
  */
 public interface MdaLogger {
 
@@ -27,7 +28,9 @@ public interface MdaLogger {
      * Severity 0.
      * 
      * @param e
+     *            the cause
      * @param message
+     *            the message
      */
     void fatal(Exception e, String... message);
 
@@ -35,7 +38,9 @@ public interface MdaLogger {
      * Severity 1.
      * 
      * @param e
+     *            the cause
      * @param message
+     *            the message
      */
     void error(Exception e, String... message);
 
@@ -43,7 +48,9 @@ public interface MdaLogger {
      * Severity 2.
      * 
      * @param e
+     *            the cause
      * @param message
+     *            the message
      */
     void warning(Exception e, String... message);
 
@@ -51,7 +58,9 @@ public interface MdaLogger {
      * Severity 3.
      * 
      * @param e
+     *            the cause
      * @param message
+     *            the message
      */
     void info(Exception e, String... message);
 
@@ -59,7 +68,9 @@ public interface MdaLogger {
      * Severity 4.
      * 
      * @param e
+     *            the cause
      * @param message
+     *            the message
      */
     void debug(Exception e, String... message);
 
@@ -74,6 +85,7 @@ public interface MdaLogger {
      * Severity 1.
      * 
      * @param message
+     *            the message
      */
     void error(String... message);
 
@@ -81,6 +93,7 @@ public interface MdaLogger {
      * Severity 2.
      * 
      * @param message
+     *            the message
      */
     void warning(String... message);
 
@@ -88,6 +101,7 @@ public interface MdaLogger {
      * Severity 3.
      * 
      * @param message
+     *            the message
      */
     void info(String... message);
 
@@ -95,6 +109,7 @@ public interface MdaLogger {
      * Severity 4.
      * 
      * @param message
+     *            the message
      */
     void debug(String... message);
 
@@ -102,6 +117,21 @@ public interface MdaLogger {
      * Severity 5.
      * 
      * @param message
+     *            the message
      */
     void trace(String... message);
+
+    /**
+     * Checks whether debug is enabled.
+     * 
+     * @return <b>true</b> if the debug level is enabled, <b>false</b> if not
+     */
+    boolean isDebugEnabled();
+
+    /**
+     * Checks whether trace is enabled.
+     * 
+     * @return <b>true</b> if the trace level is enabled, <b>false</b> if not
+     */
+    boolean isTraceEnabled();
 }

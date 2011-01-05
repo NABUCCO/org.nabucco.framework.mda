@@ -27,20 +27,43 @@ public class VisitorException extends MdaExeception {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Creates a new {@link VisitorException} instance.
+     */
     public VisitorException() {
         super();
     }
 
-    public VisitorException(String message, Throwable throwable) {
-        super(message, throwable);
-    }
-
+    /**
+     * Creates a new {@link VisitorException} instance.
+     * 
+     * @param message
+     *            the error message
+     */
     public VisitorException(String messages) {
         super(messages);
     }
 
-    public VisitorException(Throwable throwable) {
-        super(throwable);
+    /**
+     * Creates a new {@link VisitorException} instance.
+     * 
+     * @param cause
+     *            the cause
+     */
+    public VisitorException(Exception cause) {
+        super(cause);
+    }
+
+    /**
+     * Creates a new {@link VisitorException} instance.
+     * 
+     * @param message
+     *            the error message
+     * @param cause
+     *            the cause
+     */
+    public VisitorException(String message, Exception cause) {
+        super(message, cause);
     }
 
 }

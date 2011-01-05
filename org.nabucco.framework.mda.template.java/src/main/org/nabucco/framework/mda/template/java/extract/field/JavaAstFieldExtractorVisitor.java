@@ -17,9 +17,7 @@
 package org.nabucco.framework.mda.template.java.extract.field;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.eclipse.jdt.internal.compiler.ast.ASTNode;
 import org.eclipse.jdt.internal.compiler.ast.AbstractVariableDeclaration;
@@ -44,7 +42,7 @@ class JavaAstFieldExtractorVisitor extends JavaAstVisitor {
 
     private static final String SERIAL_VERSION_UID = "serialVersionUID";
 
-    private Map<String, FieldDeclaration> fieldCopyMap = new HashMap<String, FieldDeclaration>();
+    private List<FieldDeclaration> fieldCopyList = new ArrayList<FieldDeclaration>();
 
     private List<Initializer> initializerList = new ArrayList<Initializer>();
 
@@ -61,7 +59,7 @@ class JavaAstFieldExtractorVisitor extends JavaAstVisitor {
         fieldCopy.modifiers = fieldDeclaration.modifiers;
 
         copyAbstractVariableDeclaration(fieldDeclaration, fieldCopy, scope);
-        fieldCopyMap.put(fieldName, fieldCopy);
+        fieldCopyList.add(fieldCopy);
 
         return false;
     }
@@ -126,24 +124,12 @@ class JavaAstFieldExtractorVisitor extends JavaAstVisitor {
     }
 
     /**
-     * Getter for the visited {@link FieldDeclaration} by its name.
-     * 
-     * @param name
-     *            the field's name.
-     * 
-     * @return a {@link FieldDeclaration}
-     */
-    public FieldDeclaration getFieldCopy(String name) {
-        return fieldCopyMap.get(name);
-    }
-
-    /**
      * Getter for all visited {@link FieldDeclaration}.
      * 
      * @return a list of {@link FieldDeclaration}
      */
     public List<FieldDeclaration> getAllFieldCopies() {
-        return new ArrayList<FieldDeclaration>(fieldCopyMap.values());
+        return this.fieldCopyList;
     }
 
     /**

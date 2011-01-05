@@ -25,20 +25,43 @@ public abstract class MdaExeception extends Exception {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Creates a new {@link MdaExeception} instance.
+     */
     public MdaExeception() {
         super();
     }
 
-    public MdaExeception(String message, Throwable throwable) {
-        super(message, throwable);
+    /**
+     * Creates a new {@link MdaExeception} instance.
+     * 
+     * @param message
+     *            the error message
+     * @param cause
+     *            the error cause
+     */
+    public MdaExeception(String message, Exception cause) {
+        super(message, cause);
     }
 
+    /**
+     * Creates a new {@link MdaExeception} instance.
+     * 
+     * @param message
+     *            the error message
+     */
     public MdaExeception(String messages) {
         super(messages);
     }
 
-    public MdaExeception(Throwable throwable) {
-        super(throwable);
+    /**
+     * Creates a new {@link MdaExeception} instance.
+     * 
+     * @param cause
+     *            the error cause
+     */
+    public MdaExeception(Exception cause) {
+        super(cause);
     }
 
 }

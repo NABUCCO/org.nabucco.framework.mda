@@ -25,7 +25,17 @@ import org.nabucco.framework.mda.model.ModelImplementation;
  */
 public abstract class MdaTemplate<M extends ModelImplementation> {
 
-    protected M model;
+    private M model;
+
+    /**
+     * Creates a new {@link MdaTemplate} instance.
+     * 
+     * @param model
+     *            the model instance
+     */
+    public MdaTemplate(M model) {
+        this.model = model;
+    }
 
     /**
      * Getter for the model implementation

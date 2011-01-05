@@ -27,29 +27,42 @@ public class JavaModelException extends ModelException {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Creates a new {@link JavaModelException} instance.
+     */
     public JavaModelException() {
     }
 
     /**
+     * Creates a new {@link JavaModelException} instance.
+     * 
      * @param message
-     * @param throwable
+     *            the error message
+     * @param cause
+     *            the cause
      */
-    public JavaModelException(String message, Throwable throwable) {
-        super(message, throwable);
+    public JavaModelException(String message, Exception cause) {
+        super(message, cause);
     }
 
     /**
-     * @param messages
+     * Creates a new {@link JavaModelException} instance.
+     * 
+     * @param message
+     *            the error message
      */
     public JavaModelException(String messages) {
         super(messages);
     }
 
     /**
-     * @param throwable
+     * Creates a new {@link JavaModelException} instance.
+     * 
+     * @param cause
+     *            the cause
      */
-    public JavaModelException(Throwable throwable) {
-        super(throwable);
+    public JavaModelException(Exception cause) {
+        super(cause);
     }
 
 }

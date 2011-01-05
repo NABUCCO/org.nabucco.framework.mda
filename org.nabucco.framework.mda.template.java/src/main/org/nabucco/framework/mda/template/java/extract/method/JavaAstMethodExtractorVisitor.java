@@ -44,9 +44,17 @@ import org.nabucco.framework.mda.template.java.extract.statement.JavaAstStatemen
  */
 class JavaAstMethodExtractorVisitor extends JavaAstVisitor {
 
+    /** Methods by Signature. */
     private Map<JavaAstMethodSignature, AbstractMethodDeclaration> methodMap = new HashMap<JavaAstMethodSignature, AbstractMethodDeclaration>();
 
+    /** Methods by Signature. */
     private Map<JavaAstMethodSignature, AbstractMethodDeclaration> constructorMap = new HashMap<JavaAstMethodSignature, AbstractMethodDeclaration>();
+
+    /** Methods in order. */
+    private List<AbstractMethodDeclaration> methodList = new ArrayList<AbstractMethodDeclaration>();
+
+    /** Constructors in order. */
+    private List<AbstractMethodDeclaration> constructorList = new ArrayList<AbstractMethodDeclaration>();
 
     @Override
     public boolean visit(MethodDeclaration methodDeclaration, ClassScope scope) {
@@ -67,20 +75,24 @@ class JavaAstMethodExtractorVisitor extends JavaAstVisitor {
 
         JavaAstMethodSignature signature = JavaAstMethodSignature
                 .generateMethodSignature(methodDeclaration);
-        methodMap.put(signature, methodCopy);
+
+        this.methodMap.put(signature, methodCopy);
+        this.methodList.add(methodCopy);
 
         return false;
     }
 
     @Override
-    public boolean visit(ConstructorDeclaration constructorDeclaration, ClassScope scope) {
-        ConstructorDeclaration constructorDeclarationCopy = new ConstructorDeclarationExtension(
-                constructorDeclaration.compilationResult);
-        copyAbstractMethodDeclaration(constructorDeclaration, constructorDeclarationCopy);
+    public boolean visit(ConstructorDeclaration constructor, ClassScope scope) {
+        ConstructorDeclaration constructorCopy = new ConstructorDeclarationExtension(
+                constructor.compilationResult);
+        copyAbstractMethodDeclaration(constructor, constructorCopy);
 
         JavaAstMethodSignature signature = JavaAstMethodSignature
-                .generateMethodSignature(constructorDeclaration);
-        constructorMap.put(signature, constructorDeclarationCopy);
+                .generateMethodSignature(constructor);
+
+        this.constructorMap.put(signature, constructorCopy);
+        this.constructorList.add(constructorCopy);
 
         return false;
     }
@@ -103,7 +115,7 @@ class JavaAstMethodExtractorVisitor extends JavaAstVisitor {
      * @return a list of {@link MethodDeclaration}
      */
     public List<AbstractMethodDeclaration> getAllMethodCopies() {
-        return new ArrayList<AbstractMethodDeclaration>(methodMap.values());
+        return this.methodList;
     }
 
     /**
@@ -124,7 +136,7 @@ class JavaAstMethodExtractorVisitor extends JavaAstVisitor {
      * @return a list of {@link MethodDeclaration}
      */
     public List<AbstractMethodDeclaration> getAllConstructorCopies() {
-        return new ArrayList<AbstractMethodDeclaration>(constructorMap.values());
+        return this.constructorList;
     }
 
     private void copyAbstractMethodDeclaration(AbstractMethodDeclaration from,

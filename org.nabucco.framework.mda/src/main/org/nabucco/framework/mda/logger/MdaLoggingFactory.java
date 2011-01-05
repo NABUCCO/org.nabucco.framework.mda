@@ -22,19 +22,24 @@ import org.apache.log4j.PropertyConfigurator;
  * MdaLoggingFactory
  * 
  * @author Frank Ratschinski, PRODYNA AG
+ * @author Nicolas Moser, PRODYNA AG
  */
 public class MdaLoggingFactory {
 
     private static MdaLoggingFactory instance;
 
+    /**
+     * Creates a new {@link MdaLoggingFactory} instance.
+     */
     private MdaLoggingFactory() {
-
-        // TODO ConfigManager
-        PropertyConfigurator
-                .configureAndWatch("../org.nabucco.framework.mda.mda/conf/log/log4j.properties");
-
+        PropertyConfigurator.configureAndWatch("log4j.properties");
     }
 
+    /**
+     * Getter for the factory singleton instance.
+     * 
+     * @return the logger instance
+     */
     public static synchronized MdaLoggingFactory getInstance() {
         if (instance == null) {
             instance = new MdaLoggingFactory();
@@ -42,6 +47,14 @@ public class MdaLoggingFactory {
         return instance;
     }
 
+    /**
+     * Getter for the logger instance.
+     * 
+     * @param clazz
+     *            the logging subject class
+     * 
+     * @return the logger instance
+     */
     public MdaLogger getLogger(Class<?> clazz) {
         return new Log4JMdaLogger(clazz);
     }

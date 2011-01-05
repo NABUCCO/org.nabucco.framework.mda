@@ -55,14 +55,7 @@ public final class JavaFileCreator extends MdaFileCreator<JavaModel> {
         this.formatterConfigFile = formatterFile;
     }
 
-    /**
-     * Creates Java Files for a JavaModel
-     * 
-     * @see JavaModel
-     * 
-     * @throws JavaModelException
-     *             if the java file creation was not successful.
-     */
+    @Override
     protected synchronized void createConcreteFiles() throws JavaModelException {
 
         JavaModel model = super.getModel();
@@ -93,6 +86,17 @@ public final class JavaFileCreator extends MdaFileCreator<JavaModel> {
         }
     }
 
+    /**
+     * Retrieve the file path depending on the package declartion of the comilation unit.
+     * 
+     * @param unit
+     *            the java compilation unit
+     * 
+     * @return the file path
+     * 
+     * @throws JavaModelException
+     *             when the compilation unit is not valid
+     */
     private String getPath(JavaCompilationUnit unit) throws JavaModelException {
         StringBuilder path = new StringBuilder();
         path.append(super.getRootDir());
@@ -105,6 +109,19 @@ public final class JavaFileCreator extends MdaFileCreator<JavaModel> {
         return path.toString();
     }
 
+    /**
+     * Creates or updates the java file.
+     * 
+     * @param fileName
+     *            the file name
+     * @param path
+     *            the file path
+     * @param content
+     *            the file content
+     * 
+     * @throws JavaModelException
+     *             when the file cannot be saved
+     */
     private void createFile(String fileName, String path, String content) throws JavaModelException {
 
         PrintWriter writer;
@@ -113,6 +130,8 @@ public final class JavaFileCreator extends MdaFileCreator<JavaModel> {
         file.mkdirs();
         file = new File(path + fileName);
 
+        boolean exists = file.exists();
+        
         try {
             writer = new PrintWriter(file);
         } catch (IOException e) {
@@ -124,7 +143,11 @@ public final class JavaFileCreator extends MdaFileCreator<JavaModel> {
         writer.flush();
         writer.close();
 
-        logger.info("Java file created: ", fileName);
+        if (!exists) {
+            logger.info("Java file created: ", fileName);
+        } else {
+            logger.info("Java file updated: ", fileName);
+        }
         super.getFileList().add(file);
     }
 

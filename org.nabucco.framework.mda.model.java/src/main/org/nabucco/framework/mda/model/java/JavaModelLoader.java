@@ -112,7 +112,7 @@ public class JavaModelLoader extends ModelLoader<JavaModel, InputStream> {
         try {
 
             LookupEnvironment environment = JavaModelSupport.createLookupEnvironment(unit,
-                    compilerOptions);
+                    this.compilerOptions);
 
             this.beginCompile(environment, result, unit);
             this.process(environment, parser, unit);

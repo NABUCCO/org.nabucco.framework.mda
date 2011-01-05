@@ -100,6 +100,8 @@ public class XmlFileCreator extends MdaFileCreator<XmlModel> {
         file.mkdirs();
         file = new File(path + fileName);
 
+        boolean exists = file.exists();
+        
         try {
             writer = new PrintWriter(file);
         } catch (IOException e) {
@@ -111,7 +113,11 @@ public class XmlFileCreator extends MdaFileCreator<XmlModel> {
         writer.flush();
         writer.close();
 
-        logger.info("XML file created: ", fileName);
+        if (!exists) {
+            logger.info("XML file created: ", fileName);
+        } else {
+            logger.info("XML file updated: ", fileName);
+        }
         super.getFileList().add(file);
     }
 

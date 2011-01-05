@@ -119,6 +119,7 @@ import org.eclipse.jdt.internal.compiler.lookup.CompilationUnitScope;
 import org.eclipse.jdt.internal.compiler.lookup.MethodScope;
 import org.nabucco.framework.mda.model.java.JavaModelException;
 import org.nabucco.framework.mda.model.java.ast.extension.expression.CastExpressionExtension;
+import org.nabucco.framework.mda.model.java.ast.extension.statement.CaseStatementExtension;
 import org.nabucco.framework.mda.model.java.ast.visitor.JavaAstVisitor;
 import org.nabucco.framework.mda.template.java.JavaTemplateException;
 import org.nabucco.framework.mda.template.java.extract.JavaAstExtractorFactory;
@@ -283,8 +284,8 @@ class JavaAstStatementExtractorVisitor extends JavaAstVisitor {
 
         Expression constantExpression = copy(caseStatement.constantExpression, scope);
 
-        CaseStatement caseCopy = new CaseStatement(constantExpression, caseStatement.sourceEnd,
-                caseStatement.sourceStart);
+        CaseStatement caseCopy = new CaseStatementExtension(constantExpression,
+                caseStatement.sourceEnd, caseStatement.sourceStart);
 
         this.statement = caseCopy;
 
@@ -476,6 +477,7 @@ class JavaAstStatementExtractorVisitor extends JavaAstVisitor {
                 forStatement.sourceStart);
 
         foreachCopy.action = copy(forStatement.action, scope);
+        foreachCopy.collection = copy(forStatement.collection, scope);
 
         this.statement = foreachCopy;
 
@@ -876,6 +878,8 @@ class JavaAstStatementExtractorVisitor extends JavaAstVisitor {
         switchCopy.cases = copy(switchStatement.cases, scope);
         switchCopy.statements = copy(switchStatement.statements, scope);
 
+        this.statement = switchCopy;
+        
         return false;
     }
 

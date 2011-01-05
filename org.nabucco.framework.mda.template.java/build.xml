@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!--
+Copyright 2010 PRODYNA AG
+
+Licensed under the Eclipse Public License (EPL), Version 1.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.opensource.org/licenses/eclipse-1.0.php or
+http://www.nabucco-source.org/nabucco-license.html
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<!--
+ ############################################################################
+ ##
+ ## Project:	    NABUCCO Framework 
+ ## Part:		    org.nabucco.framework.mda.model
+ ## Author:		    Frank Ratschinski, Nicolas Moser, Thomas Annen
+ ## 
+ ## Version:  		1
+ ## 
+ ## Build file for project org.nabucco.framework.mda.template.java
+ ##
+ ## Builds all mda projects.
+ ##
+ ############################################################################
+ -->
+<project basedir="." default="init" name="org.nabucco.framework.mda.template.java Developer Build">
+	
+	<property file="../org.nabucco.framework.mda/conf/ant/build.properties" />
+	<property file="./conf/ant/version.properties" />
+	
+	<property name="project-name" value="org.nabucco.framework.mda.template.java" />
+
+	<!-- 
+	##################################################################################
+	##
+	## Defines the buildpath for SourceFolder main
+	##
+	##################################################################################
+	-->
+	<path id="build.main.classpath">
+		<fileset dir="../org.nabucco.framework.mda/lib">
+			<include name="*.jar" />
+		</fileset>
+		<pathelement location="../org.nabucco.framework.mda/out/ant/main" />
+		<pathelement location="../org.nabucco.framework.mda.model/out/ant/main" />
+		<pathelement location="../org.nabucco.framework.mda.model.java/out/ant/main" />
+		<pathelement location="../org.nabucco.framework.mda.template/out/ant/main" />
+	</path>
+
+	<!-- 
+	##################################################################################
+	##
+	## Defines the buildpath for SourceFolder test
+	##
+	##################################################################################
+	-->
+	<path id="build.test.classpath">
+		<fileset dir="../org.nabucco.framework.mda.template.java/lib">
+			<include name="*.jar" />
+		</fileset>
+		<!-- compiled main classes -->
+		<pathelement location="out/ant/main" />
+	</path>
+
+	<!-- 
+	##################################################################################
+	##
+	## Cleans the out/ant directory
+	##
+	##################################################################################
+	 -->
+	<target description="Cleans the complete out directory" name="clean">
+		<delete includeemptydirs="true" quiet="true">
+			<fileset dir="out/ant" includes="**/*" />
+		</delete>
+	</target>
+
+	<!--
+	##################################################################################
+	##
+	## Initializes the build by making the directories 
+	##
+	##################################################################################
+	-->
+	<target depends="" name="init">
+		<mkdir dir="out/ant/main" />
+		<mkdir dir="out/ant/test" />
+	</target>
+	
+	<!-- 
+	##################################################################################
+	##
+	## Compiles the src/main classes of source folder Main
+	##
+	##################################################################################
+	-->
+	<target name="compile.main" depends="init">
+		<javac classpathref="build.main.classpath" debug="true" destdir="out/ant/main" encoding="ISO-8859-1">
+			<src path="src/main" />
+			<compilerarg value="-Xlint:-path" />
+		</javac>
+	</target>
+
+	<!-- 
+	##################################################################################
+	##
+	## Compiles the content of source folder test/gen and test/man
+	##
+	##################################################################################
+	-->
+	<target name="compile.test" depends="compile.main">
+		<javac classpathref="build.test.classpath" debug="true" destdir="out/ant/test" encoding="ISO-8859-1">
+			<src path="src/test" />
+			<compilerarg value="-Xlint:-path" />
+		</javac>
+	</target>
+	
+	<!-- 
+	##################################################################################
+	##
+	## Packs/JARs the main classes
+	##
+	##################################################################################
+	-->
+	<target description="org.nabucco.framework.mda.template.java jar" depends="init,compile.main" name="org.nabucco.framework.mda.template.java.jar">
+		<ant antfile="../${project.mda}/conf/ant/build_jar.xml" dir="." inheritAll="true" />
+	</target>
+
+	<!-- 
+	##################################################################################
+	##
+	## Fetch all
+	##
+	##################################################################################
+	-->
+	<target name="fetch.all" depends="fetch.org.nabucco.framework.mda.jar,fetch.org.nabucco.framework.mda.model.jar,fetch.org.nabucco.framework.mda.model.java.jar,fetch.org.nabucco.framework.mda.template.jar" />
+
+	<!-- 
+	##################################################################################
+	##
+	## Fetch task for getting jar org.nabucco.framework.mda.jar
+	##
+	##################################################################################
+	-->
+	<target name="fetch.org.nabucco.framework.mda.jar">
+		<property name="fetch.project" value="${project.mda}" />
+		<ant antfile="../${fetch.project}/build.xml" dir="../${fetch.project}" inheritAll="false" target="${fetch.project}.standalone.jar" />
+		<copy file="../${fetch.project}/out/ant/${fetch.project}.jar" todir="${compile.lib}" />
+	</target>
+
+	<!-- 
+	##################################################################################
+	##
+	## Fetch task for getting jar org.nabucco.framework.mda.template.jar
+	##
+	##################################################################################
+	-->
+	<target name="fetch.org.nabucco.framework.mda.template.jar">
+		<property name="fetch.project" value="${project.mda.template}" />
+		<ant antfile="../${fetch.project}/build.xml" dir="../${fetch.project}" inheritAll="false" target="${fetch.project}.jar" />
+		<copy file="../${fetch.project}/out/ant/${fetch.project}.jar" todir="${compile.lib}" />
+	</target>
+
+
+	<!-- 
+	##################################################################################
+	##
+	## Fetch task for getting jar org.nabucco.framework.mda.model.jar
+	##
+	##################################################################################
+	-->
+	<target name="fetch.org.nabucco.framework.mda.model.jar">
+		<property name="fetch.project" value="${project.mda.model}" />
+		<ant antfile="../${fetch.project}/build.xml" dir="../${fetch.project}" inheritAll="false" target="${fetch.project}.jar" />
+		<copy file="../${fetch.project}/out/ant/${fetch.project}.jar" todir="${compile.lib}" />
+	</target>
+
+	<!-- 
+	##################################################################################
+	##
+	## Fetch task for getting jar org.nabucco.framework.mda.model.java.jar
+	##
+	##################################################################################
+	-->
+	<target name="fetch.org.nabucco.framework.mda.model.java.jar">
+		<property name="fetch.project" value="${project.mda.model.java}" />
+		<ant antfile="../${fetch.project}/build.xml" dir="../${fetch.project}" inheritAll="false" target="${fetch.project}.jar" />
+		<copy file="../${fetch.project}/out/ant/${fetch.project}.jar" todir="${compile.lib}" />
+	</target>
+	
+	<!-- 
+	##################################################################################
+	##
+	## provides content to main project to build consitent jar
+	##
+	##################################################################################
+	-->
+	<target name="provide.content" depends="compile.main">
+		<ant antfile="../${project.mda}/conf/ant/build_provide_content.xml" dir="." inheritAll="true">
+			<property name="target.project" value="${project.mda}"/>
+		</ant>
+	</target>
+</project>

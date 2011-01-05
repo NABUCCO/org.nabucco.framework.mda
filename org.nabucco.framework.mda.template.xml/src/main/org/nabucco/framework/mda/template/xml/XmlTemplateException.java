@@ -16,6 +16,7 @@
  */
 package org.nabucco.framework.mda.template.xml;
 
+import org.nabucco.framework.mda.MdaExeception;
 import org.nabucco.framework.mda.template.MdaTemplateException;
 
 /**
@@ -27,20 +28,43 @@ public class XmlTemplateException extends MdaTemplateException {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * Creates a new {@link MdaExeception} instance.
+     */
     public XmlTemplateException() {
         super();
     }
 
-    public XmlTemplateException(String message, Throwable throwable) {
-        super(message, throwable);
+    /**
+     * Creates a new {@link MdaExeception} instance.
+     * 
+     * @param message
+     *            the error message
+     * @param cause
+     *            the error cause
+     */
+    public XmlTemplateException(String message, Exception cause) {
+        super(message, cause);
     }
 
+    /**
+     * Creates a new {@link MdaExeception} instance.
+     * 
+     * @param message
+     *            the error message
+     */
     public XmlTemplateException(String messages) {
         super(messages);
     }
 
-    public XmlTemplateException(Throwable throwable) {
-        super(throwable);
+    /**
+     * Creates a new {@link MdaExeception} instance.
+     * 
+     * @param cause
+     *            the error cause
+     */
+    public XmlTemplateException(Exception cause) {
+        super(cause);
     }
 
 }

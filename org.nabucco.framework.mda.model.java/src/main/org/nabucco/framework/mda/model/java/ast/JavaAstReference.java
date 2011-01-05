@@ -17,6 +17,7 @@
 package org.nabucco.framework.mda.model.java.ast;
 
 import org.eclipse.jdt.internal.compiler.ast.FieldReference;
+import org.eclipse.jdt.internal.compiler.ast.ParameterizedSingleTypeReference;
 import org.eclipse.jdt.internal.compiler.ast.TypeReference;
 import org.nabucco.framework.mda.model.java.JavaModelException;
 
@@ -36,6 +37,20 @@ public interface JavaAstReference {
      * @return <b>true</b> if it is a primitive type, <b>false</b> if not.
      */
     Boolean isPrimitive(TypeReference reference) throws JavaModelException;
+
+    /**
+     * Returns a new instance of {@link ParameterizedSingleTypeReference} for a given
+     * {@link TypeReference} and set of Parameters.
+     * 
+     * @param reference
+     *            initial {@link TypeReference}
+     * @param parameters
+     *            set of parameters
+     * @return new instance of {@link ParameterizedSingleTypeReference} with the given type
+     *         parameterized to the given {@link TypeReference}'s
+     */
+    ParameterizedSingleTypeReference getAsParameterized(TypeReference reference,
+            TypeReference[] parameters);
 
     /**
      * Updates the field reference name.

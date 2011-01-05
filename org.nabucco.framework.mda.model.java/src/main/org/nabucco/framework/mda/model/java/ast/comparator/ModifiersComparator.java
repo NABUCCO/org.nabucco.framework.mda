@@ -27,30 +27,37 @@ import org.eclipse.jdt.internal.compiler.classfmt.ClassFileConstants;
  * @author Thomas Annen, PRODYNA AG
  */
 public enum ModifiersComparator implements Comparator<Integer> {
+
     PUBLIC_MODIFIER(ClassFileConstants.AccPublic),
+    
+    PROTECTED_MODIFIER(ClassFileConstants.AccProtected),
+
     PRIVATE_MODIFIER(ClassFileConstants.AccPrivate),
+
     STATIC_MODIFIER(ClassFileConstants.AccStatic),
+
     FINAL_MODIFIER(ClassFileConstants.AccFinal);
 
     private int modifier = 0;
 
+    /**
+     * Creates a new {@link ModifiersComparator} instance.
+     * 
+     * @param modifier
+     *            the modifier
+     */
     private ModifiersComparator(int modifier) {
         this.modifier = modifier;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see java.util.Comparator#compare(java.lang.Object, java.lang.Object)
-     */
     @Override
     public int compare(Integer o1, Integer o2) {
         if (o1 == null || o2 == null) {
             throw new IllegalArgumentException("Given values musn't be null.");
         }
 
-        boolean modifierExist1 = (o1 & modifier) > 0;
-        boolean modifierExist2 = (o2 & modifier) > 0;
+        boolean modifierExist1 = (o1 & this.modifier) > 0;
+        boolean modifierExist2 = (o2 & this.modifier) > 0;
 
         if (modifierExist1 && modifierExist2) {
             return 0;

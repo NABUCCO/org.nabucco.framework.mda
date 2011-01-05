@@ -19,6 +19,7 @@ package org.nabucco.framework.mda.model.java.ast.element;
 import java.util.Arrays;
 
 import org.eclipse.jdt.internal.compiler.ast.FieldReference;
+import org.eclipse.jdt.internal.compiler.ast.ParameterizedSingleTypeReference;
 import org.eclipse.jdt.internal.compiler.ast.TypeReference;
 import org.nabucco.framework.mda.model.java.JavaModelException;
 import org.nabucco.framework.mda.model.java.ast.JavaAstReference;
@@ -98,6 +99,11 @@ class JavaAstReferenceImpl implements JavaAstReference {
         }
 
         return false;
+    }
+
+    public ParameterizedSingleTypeReference getAsParameterized(TypeReference reference,
+            TypeReference[] parameter) {
+        return new ParameterizedSingleTypeReference(reference.getLastToken(), parameter, 0, 0);
     }
 
     @Override

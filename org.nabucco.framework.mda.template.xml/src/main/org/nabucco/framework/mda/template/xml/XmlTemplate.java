@@ -37,12 +37,14 @@ import org.w3c.dom.NodeList;
  */
 public class XmlTemplate extends MdaTemplate<XmlModel> {
 
+    /**
+     * Creates a new {@link XmlTemplate} instance.
+     * 
+     * @param model
+     *            the XML model
+     */
     public XmlTemplate(XmlModel model) {
-        this.model = model;
-    }
-
-    public XmlModel getModel() {
-        return model;
+        super(model);
     }
 
     /**
@@ -60,7 +62,7 @@ public class XmlTemplate extends MdaTemplate<XmlModel> {
         try {
             XPathExpression expression = XPathFactory.newInstance().newXPath().compile(xPath);
 
-            NodeList nodes = (NodeList) expression.evaluate(this.model.getDocuments().get(0)
+            NodeList nodes = (NodeList) expression.evaluate(super.getModel().getDocuments().get(0)
                     .getDocument(), XPathConstants.NODESET);
 
             List<Node> nodeList = new ArrayList<Node>();
@@ -80,7 +82,7 @@ public class XmlTemplate extends MdaTemplate<XmlModel> {
     @Override
     public XmlModel extractModel() throws XmlTemplateException {
         try {
-            return this.model.copyModel();
+            return super.getModel().copyModel();
         } catch (XmlModelException e) {
             throw new XmlTemplateException("Error copying xml model.", e);
         }
