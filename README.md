@@ -70,7 +70,7 @@ This is where the MDA core of NABUCCO is exclusively used for the creation of a 
 
 Use of the NABUCCO DSL / Generator as a software factory
 --------------------------------------------------------
-Would you like to boost parts of the application development with MDA? This is where the NABUCCO DSL and the corresponding generators can go “out of the box” or help the generators with customized adjustments in order to optimize inconsistent application development and raise quality.
+Would you like to boost parts of the application development with MDA? This is where the NABUCCO DSL and the corresponding generators can go "out of the box" or help the generators with customized adjustments in order to optimize inconsistent application development and raise quality.
 
 Development of new components for specific industries or customers
 ------------------------------------------------------------------
