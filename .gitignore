@@ -1,5 +1,13 @@
 out/
 lib/
+test/
 .metadata/
+org.eclipse.jdt.ui.prefs
+org.eclipse.jdt.core.prefs
+org.eclipse.core.resources.prefs
 *.orig
 *.*ar
+*.xml
+*.properties
+*.nbcdoc
+*dummy*

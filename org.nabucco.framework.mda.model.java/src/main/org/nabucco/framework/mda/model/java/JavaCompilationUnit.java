@@ -1,12 +1,12 @@
 /*
- * Copyright 2010 PRODYNA AG
+ * Copyright 2012 PRODYNA AG
  *
  * Licensed under the Eclipse Public License (EPL), Version 1.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  * http://www.opensource.org/licenses/eclipse-1.0.php or
- * http://www.nabucco-source.org/nabucco-license.html
+ * http://www.nabucco.org/License.html
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22,6 +22,7 @@ import org.eclipse.jdt.internal.compiler.ast.CompilationUnitDeclaration;
 import org.eclipse.jdt.internal.compiler.ast.TypeDeclaration;
 import org.nabucco.framework.mda.model.file.MdaFile;
 import org.nabucco.framework.mda.model.java.ast.element.JavaAstElementFactory;
+import org.nabucco.framework.mda.model.java.ast.extension.unit.CompilationUnitExtension;
 
 /**
  * JavaCompilationUnit
@@ -42,6 +43,8 @@ public class JavaCompilationUnit implements MdaFile {
     private String projectName;
 
     private String folder;
+
+    private String version;
 
     /**
      * Creates a new {@link JavaCompilationUnit} instance.
@@ -140,6 +143,19 @@ public class JavaCompilationUnit implements MdaFile {
     }
 
     /**
+     * Getter for the file header.
+     * 
+     * @return the file header
+     */
+    public String getFileHeader() {
+        if (!(this.unit instanceof CompilationUnitExtension)) {
+            return "";
+        }
+
+        return ((CompilationUnitExtension) this.unit).getHeader(0);
+    }
+
+    /**
      * Getter for the public type declaration contained by the {@link CompilationUnitDeclaration}.
      * 
      * @return the class as {@link TypeDeclaration}
@@ -163,5 +179,15 @@ public class JavaCompilationUnit implements MdaFile {
      */
     public TypeDeclaration getType(String name) throws JavaModelException {
         return JavaAstElementFactory.getInstance().getJavaAstUnit().getJavaClass(unit, name);
+    }
+
+    @Override
+    public String getVersion() {
+        return this.version;
+    }
+
+    @Override
+    public void setVersion(String version) {
+        this.version = version;
     }
 }

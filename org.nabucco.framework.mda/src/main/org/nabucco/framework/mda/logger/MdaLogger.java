@@ -1,12 +1,12 @@
 /*
- * Copyright 2010 PRODYNA AG
+ * Copyright 2012 PRODYNA AG
  *
  * Licensed under the Eclipse Public License (EPL), Version 1.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  * http://www.opensource.org/licenses/eclipse-1.0.php or
- * http://www.nabucco-source.org/nabucco-license.html
+ * http://www.nabucco.org/License.html
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -32,7 +32,7 @@ public interface MdaLogger {
      * @param message
      *            the message
      */
-    void fatal(Exception e, String... message);
+    void fatal(Throwable t, String... message);
 
     /**
      * Severity 1.
@@ -42,7 +42,7 @@ public interface MdaLogger {
      * @param message
      *            the message
      */
-    void error(Exception e, String... message);
+    void error(Throwable t, String... message);
 
     /**
      * Severity 2.
@@ -52,7 +52,7 @@ public interface MdaLogger {
      * @param message
      *            the message
      */
-    void warning(Exception e, String... message);
+    void warning(Throwable t, String... message);
 
     /**
      * Severity 3.
@@ -62,7 +62,7 @@ public interface MdaLogger {
      * @param message
      *            the message
      */
-    void info(Exception e, String... message);
+    void info(Throwable t, String... message);
 
     /**
      * Severity 4.
@@ -72,7 +72,7 @@ public interface MdaLogger {
      * @param message
      *            the message
      */
-    void debug(Exception e, String... message);
+    void debug(Throwable t, String... message);
 
     /**
      * Severity 0.

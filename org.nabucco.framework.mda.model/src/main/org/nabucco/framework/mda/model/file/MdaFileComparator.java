@@ -1,12 +1,12 @@
 /*
- * Copyright 2010 PRODYNA AG
+ * Copyright 2012 PRODYNA AG
  *
  * Licensed under the Eclipse Public License (EPL), Version 1.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  * http://www.opensource.org/licenses/eclipse-1.0.php or
- * http://www.nabucco-source.org/nabucco-license.html
+ * http://www.nabucco.org/License.html
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -37,12 +37,23 @@ public class MdaFileComparator {
 
     private ByteBuffer buffer2;
 
+    // private static final int DEFAULT_BUFFER_SIZE = 131072; // 128 KB;
+
     private static final int DEFAULT_BUFFER_SIZE = 65536; // 64 KB;
 
+    /**
+     * Creates a new {@link MdaFileComparator} instance.
+     */
     public MdaFileComparator() {
         this(DEFAULT_BUFFER_SIZE);
     }
 
+    /**
+     * Creates a new {@link MdaFileComparator} instance.
+     * 
+     * @param bufferSize
+     *            size of the buffer
+     */
     public MdaFileComparator(int bufferSize) {
         this.bufferSize = bufferSize;
         this.buffer1 = ByteBuffer.allocate(bufferSize);
@@ -50,19 +61,19 @@ public class MdaFileComparator {
     }
 
     /**
-     * Compares two files for content.
+     * Compares a file content with a string for equalty.
      * 
      * @param file
-     *            the first file
-     * @param newFile
-     *            the second file
+     *            the file
+     * @param content
+     *            the generated content as string
      * 
-     * @return <b>true</b> if the files are equal, <b>false</b> if not.
+     * @return <b>true</b> if the contents are equal, <b>false</b> if not.
      * 
      * @throws ModelException
      *             if the files are not valid
      */
-    public boolean compareFileContent(File file, String content) throws ModelException {
+    public boolean compare(File file, String content) throws ModelException {
 
         if (file == null || content == null) {
             return false;
@@ -83,7 +94,9 @@ public class MdaFileComparator {
 
         try {
             fileInput = new FileInputStream(file);
-
+            
+            int size1 = 0;
+            int size2 = 0;
             long alreadyReadedBytes = 0;
 
             while (alreadyReadedBytes < oldLength) {
@@ -91,8 +104,8 @@ public class MdaFileComparator {
                 this.buffer1.clear();
                 this.buffer2.clear();
 
-                int size1 = readIn(fileInput.getChannel(), this.buffer1);
-                readIn(content, this.buffer2);
+                size1 = this.readIn(fileInput.getChannel(), this.buffer1);
+                size2 = this.readIn(content, this.buffer2, size2);
 
                 if (!compare(this.buffer1, this.buffer2, size1)) {
                     return false;
@@ -102,12 +115,26 @@ public class MdaFileComparator {
 
             return true;
 
-        } catch (IOException e) {
-            throw new ModelException("Error comparing files.", e);
+        } catch (Exception e) {
+            throw new ModelException("Error comparing generated content with file '"
+                    + file.getName() + "'.", e);
         }
 
     }
 
+    /**
+     * Read the file into the buffer
+     * 
+     * @param file
+     *            the file channel holding the content
+     * @param buffer
+     *            the buffer to add the content
+     * 
+     * @return the buffer size
+     * 
+     * @throws IOException
+     *             when the file cannot be read
+     */
     private int readIn(FileChannel file, ByteBuffer buffer) throws IOException {
         int x = 0, z = 0;
         do {
@@ -117,17 +144,48 @@ public class MdaFileComparator {
         return x;
     }
 
-    private void readIn(String content, ByteBuffer buffer) {
-
-        // TODO: buffersize
+    /**
+     * Read the string into the buffer.
+     * 
+     * @param content
+     *            the string content
+     * @param buffer
+     *            the buffer to add the content
+     * 
+     * @return the buffer size
+     */
+    private int readIn(String content, ByteBuffer buffer, int size) {
 
         char[] contentArray = content.toCharArray();
 
-        for (int i = 0; i < contentArray.length; i++) {
-            buffer.put(i, (byte) contentArray[i]);
+        int j = 0;
+        
+        for (int i = size; i < contentArray.length; i++) {
+
+            if (j >= this.bufferSize) {
+                return i;
+            }
+
+            buffer.put(j, (byte) contentArray[i]);
+            
+            j++;
         }
+
+        return contentArray.length;
     }
 
+    /**
+     * Compare two buffers.
+     * 
+     * @param a
+     *            the first buffer
+     * @param b
+     *            the second buffer
+     * @param len
+     *            the buffer length
+     * 
+     * @return <b>true</b> when the buffers are equal, <b>false</b> if not
+     */
     private static boolean compare(ByteBuffer a, ByteBuffer b, int len) {
         for (int i = 0; i < len; i++) {
             if (a.get(i) != b.get(i))

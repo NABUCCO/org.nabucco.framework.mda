@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<uml:Profile xmi:version="2.1" xmlns:xmi="http://schema.omg.org/spec/XMI/2.1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:uml="http://www.eclipse.org/uml2/2.0.0/UML" xmi:id="_14_0_1_90c0295_1257354016437_319109_196" name="pro" metamodelReference="_0metamodelReferencepro">
+  <eAnnotations xmi:id="_O86gLMnqEd6kR-T7kS7lLg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+    <contents xmi:type="ecore:EPackage" xmi:id="_O86gLcnqEd6kR-T7kS7lLg" name="pro" nsURI="http:///schemas/pro/_O8K1gMnqEd6kR-T7kS7lLg/0" nsPrefix="pro">
+      <eClassifiers xmi:type="ecore:EClass" xmi:id="_O86gLsnqEd6kR-T7kS7lLg" name="Datatype">
+        <eAnnotations xmi:id="_O86gL8nqEd6kR-T7kS7lLg" source="http://www.eclipse.org/uml2/2.0.0/UML" references="_14_0_1_90c0295_1257354029984_744114_197"/>
+        <eStructuralFeatures xmi:type="ecore:EReference" xmi:id="_O86gMMnqEd6kR-T7kS7lLg" name="base_Class" ordered="false" lowerBound="1">
+          <eType xmi:type="ecore:EClass" href="http://www.eclipse.org/uml2/2.0.0/UML#//Class"/>
+        </eStructuralFeatures>
+      </eClassifiers>
+    </contents>
+  </eAnnotations>
+  <packageImport xmi:id="_0metamodelReferencepro">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_METAMODELS/UML.metamodel.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:id="_0primitiveTypespro">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/UMLPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packageImport xmi:id="_0javaPrimitiveTypespro">
+    <importedPackage xmi:type="uml:Model" href="pathmap://UML_LIBRARIES/JavaPrimitiveTypes.library.uml#_0"/>
+  </packageImport>
+  <packagedElement xmi:type="uml:Stereotype" xmi:id="_14_0_1_90c0295_1257354029984_744114_197" name="Datatype">
+    <ownedAttribute xmi:id="_14_0_1_90c0295_1257354044234_276803_204" name="base_Class" visibility="private" association="_14_0_1_90c0295_1257354044234_177642_203">
+      <type xmi:type="uml:Class" href="pathmap://UML_METAMODELS/UML.metamodel.uml#Class"/>
+    </ownedAttribute>
+  </packagedElement>
+  <packagedElement xmi:type="uml:Extension" xmi:id="_14_0_1_90c0295_1257354044234_177642_203" name="" memberEnd="_14_0_1_90c0295_1257354044234_851642_205 _14_0_1_90c0295_1257354044234_276803_204">
+    <ownedEnd xmi:type="uml:ExtensionEnd" xmi:id="_14_0_1_90c0295_1257354044234_851642_205" name="extension_Datatype" visibility="private" type="_14_0_1_90c0295_1257354029984_744114_197" aggregation="composite" association="_14_0_1_90c0295_1257354044234_177642_203">
+      <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_14_0_1_90c0295_1257354044234_530336_207" name="" value="1"/>
+      <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_14_0_1_90c0295_1257354044234_340590_206" name=""/>
+    </ownedEnd>
+  </packagedElement>
+</uml:Profile>

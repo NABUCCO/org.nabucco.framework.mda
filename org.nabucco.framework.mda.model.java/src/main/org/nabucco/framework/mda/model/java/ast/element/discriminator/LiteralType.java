@@ -1,12 +1,12 @@
 /*
- * Copyright 2010 PRODYNA AG
+ * Copyright 2012 PRODYNA AG
  *
  * Licensed under the Eclipse Public License (EPL), Version 1.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
  * http://www.opensource.org/licenses/eclipse-1.0.php or
- * http://www.nabucco-source.org/nabucco-license.html
+ * http://www.nabucco.org/License.html
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -39,6 +39,8 @@ public enum LiteralType {
 
     CHAR_LITERAL,
 
+    BOOLEAN_LITERAL,
+
     LONG_LITERAL;
 
     /**
@@ -60,9 +62,15 @@ public enum LiteralType {
         } else if (primitivType.compareToIgnoreCase("Double") == 0) {
             return DOUBLE_LITERAL;
         } else if (primitivType.compareToIgnoreCase("Character") == 0) {
-            return INT_LITERAL;
-        } else if (primitivType.compareToIgnoreCase("Long") == 0) {
-            return INT_LITERAL;
+            return CHAR_LITERAL;
+        } else if (primitivType.compareToIgnoreCase("Boolean") == 0) {
+            return BOOLEAN_LITERAL;
+        } else if (primitivType.compareToIgnoreCase("false") == 0) {
+            return FALSE_LITERAL;
+        } else if (primitivType.compareToIgnoreCase("true") == 0) {
+            return TRUE_LITERAL;
+        } else if (primitivType.compareToIgnoreCase("null") == 0) {
+            return NULL_LITERAL;
         }
         return null;
     }
