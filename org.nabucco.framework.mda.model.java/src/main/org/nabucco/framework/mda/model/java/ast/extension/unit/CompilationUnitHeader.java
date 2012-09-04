@@ -29,7 +29,7 @@ interface CompilationUnitHeader {
             + " * this file except in compliance with the License. You may obtain a copy of the License at\n"
             + " * \n"
             + " * http://www.opensource.org/licenses/eclipse-1.0.php or\n"
-            + " * http://nabuccosource.org/License.html\n"
+            + " * http://www.nabucco.org/License.html\n"
             + " * \n"
             + " * Unless required by applicable law or agreed to in writing, software distributed under the\n"
             + " * License is distributed on an \"AS IS\" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,\n"
